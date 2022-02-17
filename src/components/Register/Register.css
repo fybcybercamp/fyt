@@ -1,0 +1,16 @@
+.Register{margin:0}
+
+.Register h4,.form-label, .py-5, .pt-5{
+    color:#78cbe4 !important;
+  }
+  
+  .Register .pt-5 a{
+    color:rgb(54, 49, 49);
+  }
+  
+  .Register .btn{background-color: rgb(54, 49, 49); border:gray;}
+  
+  .Register .btn:hover{background-color: black; border:black;}
+  
+  .Register select, option{color:gray !important;}
+  

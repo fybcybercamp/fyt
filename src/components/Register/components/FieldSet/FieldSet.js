@@ -1,5 +1,5 @@
-import Field from "./Field";
-import { FieldHelper, memberRoles, memberInstitutions } from "../utils";
+import Field from "../Field";
+import { FieldHelper, memberRoles, memberInstitutions } from "../../../../utils";
 
 
 function FieldSet(props) {
@@ -23,7 +23,7 @@ function FieldSet(props) {
 
             <Field isRequired={isRequired} label='Matricula' feedbackMessage= 'Informar a matrícula do membro junto a instituição é obrigatório.' className='member_enrollment' type={FieldHelper.INPUT}/>
             <hr className="my-4"/>
-         </>
+    </>
 
   );
 }
