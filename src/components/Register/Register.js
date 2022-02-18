@@ -1,5 +1,6 @@
 
 import './Register.css';
+import { useEffect } from "react";
 import FieldSet from './components/FieldSet';
 import { sendRequest, produceBody} from '../../utils';
 
@@ -25,12 +26,18 @@ function Register() {
     sendRequest(body, uri, method);
     
   }
+
+  useEffect(
+    ()=>{
+      localStorage.setItem(`USER`, null);
+    },[]
+  );
   
 
   return (
-    <div className="container">
+    <div className="Register">
       
-        <main>
+        <main className="container">
         <div className="py-5 text-center">
           <img className="d-block mx-auto mb-4" src="/img/logo.png" alt="" width="396" height="160"/>
           <h2>Cybercamp Fit Your Thinking</h2>

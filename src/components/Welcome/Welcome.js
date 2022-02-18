@@ -1,26 +1,26 @@
 import './Welcome.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 function Welcome() {
 
-  const [user, setUser] = useState(null);
-  const [pass, setPass] = useState(null);
   let navigate = useNavigate();
 
-
+  useEffect(
+    ()=>{
+      localStorage.setItem(`USER`, null);
+    },[]
+  );
 
   const handleClick = () => {
     const auth = getAuth();
     document.querySelector('.alert').style.display=`none`;
-      signInWithEmailAndPassword(auth, user, pass)
+      signInWithEmailAndPassword(auth, localStorage.getItem(`USER`), localStorage.getItem(`PASS`))
         .then((userCredential) => {
-          
           navigate("/store");
-          localStorage.setItem(`USER`, userCredential);
-          
+          localStorage.setItem(`CRED`,userCredential)
         })
         .catch((error) => {
             document.querySelector(`.alert`).style.display=`inherit`;
@@ -49,12 +49,12 @@ function Welcome() {
                       <p>Use suas credenciais para acessar o repositório de inscrições.</p>
 
                       <div className="form-outline mb-4">
-                        <input type="email" id="form2Example11" onChange={(e)=>{setUser(e.target.value)}} className="form-control" placeholder="Digite seu e-mail"/>
+                        <input type="email" id="form2Example11" onChange={(e)=>{localStorage.setItem(`USER`,e.target.value)}} className="form-control" placeholder="Digite seu e-mail"/>
                         
                       </div>
 
                       <div className="form-outline mb-4">
-                        <input type="password" id="form2Example22" onChange={(e)=>{setPass(e.target.value)}} className="form-control" placeholder="Digite sua senha"/>
+                        <input type="password" id="form2Example22" onChange={(e)=>{localStorage.setItem(`PASS`,e.target.value)}} className="form-control" placeholder="Digite sua senha"/>
                         
                       </div>
 

@@ -196,4 +196,51 @@ const memberInstitutions = [
     {label:`Universidade Whatever`, value:'Universidade Whatever'},
 ];
 
-export {sendRequest, produceBody, formValidationObserver, FieldHelper, memberRoles, memberInstitutions};
+var objectToCSVRow = function(dataObject) {
+    var dataArray = [];
+    for (var o in dataObject) {
+        var innerValue = dataObject[o]===null?'':dataObject[o].toString();
+        var result = innerValue.replace(/"/g, '""');
+        result = '"' + result + '"';
+        dataArray.push(result);
+    }
+    return dataArray.join(' ') + '\r\n';
+}
+
+var exportToCSV = function(arrayOfObjects) {
+
+    if (!arrayOfObjects.length) {
+        return;
+    }
+
+    var csvContent = "data:text/csv;charset=utf-8,";
+
+    // headers
+    csvContent += objectToCSVRow(Object.keys(arrayOfObjects[0]));
+
+    arrayOfObjects.forEach(function(item){
+        csvContent += objectToCSVRow(item);
+    }); 
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "customers.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click();
+    document.body.removeChild(link); 
+}
+
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+
+function formatDate(date) {
+    return [
+      padTo2Digits(date.getDate()),
+      padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('/');
+  }
+
+export {sendRequest, produceBody, formValidationObserver, FieldHelper, memberRoles, memberInstitutions, exportToCSV, formatDate};
