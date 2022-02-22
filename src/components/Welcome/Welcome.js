@@ -28,24 +28,21 @@ function Welcome() {
                     <div className="text-center">
                       <img src="/fyt/img/logo.png" alt="logo"/>
                       <h4 className="mt-1 mb-5 pb-1">Cybercamp Fit Your Business</h4>
-                    </div>
-
-                    <form>
                       <p>Bem vindo a plataforma de inscrições!</p>
 
-                     
+                    </div>
 
-                      <div className="form-outline mb-4">
+                    
+
+                      <div className="row WelcomeButtonRow">
                       <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleRegisterRedirect} type="button">Realizar inscrições</button>
                       </div>
 
-                      <div className="form-outline mb-4">
+                      <div className="row WelcomeButtonRow">
                       <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleLoginRedirect} type="button">Gerenciar inscrições</button>
                       </div>
 
                      
-
-                    </form>
 
                   </div>
                 </div>

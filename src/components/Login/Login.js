@@ -46,7 +46,7 @@ function Login() {
                     </div>
 
                     <form>
-                      <p>Use suas credenciais para acessar o repositório de inscrições.</p>
+                      <p>Área destinada aos organizadores do certame. Use as credenciais para acessar o repositório de inscrições.</p>
 
                       <div className="form-outline mb-4">
                         <input type="email" id="form2Example11" onChange={(e)=>{localStorage.setItem(`USER`,e.target.value)}} className="form-control" placeholder="Digite seu e-mail"/>

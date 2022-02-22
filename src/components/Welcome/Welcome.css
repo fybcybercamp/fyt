@@ -7,6 +7,8 @@
 
 .Welcome img{width:185px;}
 
+.Welcome .WelcomeButtonRow{ justify-content: center; padding:10px;}
+
 .Welcome button{border:0px; float:right; width:200px}
 
 .gradient-custom-2 {
