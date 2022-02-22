@@ -1,9 +1,17 @@
 
 import { FieldHelper } from "../../../../utils";
+import {useState} from 'react';
 
 function Field(props) {
 
-    const {isRequired, label, feedbackMessage, className, data, type} = props;
+    const {label, keyId, feedbackMessage, className, data, type} = props;
+    const [isRequired, setIsRequired] = useState(props.isRequired);
+
+    const handleChange = (e) => {
+      if(e.target.value!=='' && keyId> 4){
+        setIsRequired(true);
+      }
+    }
 
     const genereateInput = () =>{
         return (
@@ -12,8 +20,8 @@ function Field(props) {
                 <div className="input-group has-validation">
                   {/*<span className="input-group-text">@</span>*/}
                   {isRequired? 
-                  (<input type="text" className={className+" form-control"} placeholder="" required/>):
-                  (<input type="text" className={className+" form-control"} placeholder=""/>)}
+                  (<input  type="text" className={className+" form-control"} placeholder="" required/>):
+                  (<input onChange={handleChange}  type="text" className={className+" form-control"} placeholder=""/>)}
                   <div className="invalid-feedback">
                     {feedbackMessage}
                   </div>
@@ -29,7 +37,7 @@ function Field(props) {
                 <label htmlFor="" className="form-label">{label}</label>
                 {isRequired? 
                   (<select className={className+" form-select"} id="" required>{genereateOptions()}</select>):
-                  (<select className={className+" form-select"} id="">{genereateOptions()}</select>)}
+                  (<select onChange={handleChange} className={className+" form-select"} id="">{genereateOptions()}</select>)}
                 <div className="invalid-feedback">
                 {feedbackMessage}
                 </div>

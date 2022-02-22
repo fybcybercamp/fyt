@@ -6,6 +6,7 @@ import { sendRequest, produceBody} from '../../utils';
 
 function Register() {
 
+  let keyId = 0;
   
   const handleClick = ()=>{
 
@@ -67,17 +68,17 @@ function Register() {
                 <hr className="my-4"/>
 
 
-                <FieldSet title='Dados do head da equipe' isRequired={true}/>
+                <FieldSet title='Dados do head da equipe' isRequired={true} keyId={++keyId}/>
 
-                <FieldSet title='Dados do segundo membro' isRequired={true}/>
+                <FieldSet title='Dados do segundo membro' isRequired={true} keyId={++keyId}/>
 
-                <FieldSet title='Dados do terceiro membro' isRequired={true}/>
+                <FieldSet title='Dados do terceiro membro' isRequired={true} keyId={++keyId}/>
 
-                <FieldSet title='Dados do quarto membro' isRequired={true}/>
+                <FieldSet title='Dados do quarto membro' isRequired={true} keyId={++keyId}/>
 
-                <FieldSet title='Dados do quinto membro' isRequired={false}/>
+                <FieldSet title='Dados do quinto membro' isRequired={false} keyId={++keyId}/>
 
-                <FieldSet title='Dados do sexto membro' isRequired={false}/>
+                <FieldSet title='Dados do sexto membro' isRequired={false} keyId={++keyId}/>
 
               </div>
 

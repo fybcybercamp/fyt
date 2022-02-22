@@ -1,17 +1,39 @@
 
+const FieldHelper = {INPUT:1, SELECT:2};
+
+const memberRoles = [
+    {label:`Escolha...`, value:``},
+    {label:"Designer", value:'Designer UX/UI'},
+    {label:"Dev back-end", value:'Dev back-end'},
+    {label:"Dev front-end", value:'Dev front-end'},
+    {label:"Product Owne", value:'Product Owner'},
+    {label:"Scrum Master", value:'Scrum Master'},
+    {label:"Tech-lead", value:'Tech-lead'}
+];
+
+const memberInstitutions = [
+    {label:`Escolha...`, value:``},
+    {label:`Escolar Sandy`, value:'Escolar Sandy'},
+    {label:`Faculdade Junior`, value:'Faculdade Junior'},
+    {label:`Universidade Whatever`, value:'Universidade Whatever'},
+];
+
+
 const sendRequest = async (body, uri, method, headers = {'Accept': 'application/json','Content-Type': 'application/json'}) =>{
 
     try{
-        const rawResponse = await fetch(
-            uri, {
-                method,
-                headers,
-                body
-        });
+        if(localStorage.getItem('IS_VALID')==='true'){
+        const rawResponse = await fetch(uri, {method,headers,body});
     
         alert('Dados enviados com sucesso!')
 
         return await rawResponse.json();
+
+        }else{
+            alert('Inscrição não realizada. Os campos realçados em vermelho precisam ser preenchidos.');
+            return false;
+        }
+
     }catch(error){
 
         alert('Requisição não foi aceita!')
@@ -168,47 +190,10 @@ const produceBody = (squad,
         }
     }`;
 
-    console.log(body);
-
     return body;
 
 }
 
-const formValidationObserver = ()=> {
-    window.addEventListener('load', function() {
-      
-      var forms = document.getElementsByClassName('needs-validation');
-      Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          this.alert(`john`)
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-};
-
-const FieldHelper = {INPUT:1, SELECT:2};
-
-const memberRoles = [
-    {label:`Escolha...`, value:``},
-    {label:"Designer", value:'Designer UX/UI'},
-    {label:"Dev back-end", value:'Dev back-end'},
-    {label:"Dev front-end", value:'Dev front-end'},
-    {label:"Product Owne", value:'Product Owner'},
-    {label:"Scrum Master", value:'Scrum Master'},
-    {label:"Tech-lead", value:'Tech-lead'}
-];
-
-const memberInstitutions = [
-    {label:`Escolha...`, value:``},
-    {label:`Escolar Sandy`, value:'Escolar Sandy'},
-    {label:`Faculdade Junior`, value:'Faculdade Junior'},
-    {label:`Universidade Whatever`, value:'Universidade Whatever'},
-];
 
 var objectToCSVRow = function(dataObject) {
     var dataArray = [];
