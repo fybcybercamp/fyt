@@ -1,5 +1,5 @@
 import './Welcome.css';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from 'react-router';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -10,14 +10,14 @@ function Welcome() {
 
   useEffect(
     ()=>{
-      localStorage.setItem(`USER`, null);
+      localStorage.setItem('USER', null);
     },[]
   );
 
   const handleClick = () => {
     const auth = getAuth();
     document.querySelector('.alert').style.display=`none`;
-      signInWithEmailAndPassword(auth, localStorage.getItem(`USER`), localStorage.getItem(`PASS`))
+      signInWithEmailAndPassword(auth, localStorage.getItem('USER'), localStorage.getItem('PASS'))
         .then((userCredential) => {
           navigate("/store");
           localStorage.setItem(`CRED`,userCredential)

@@ -1,3 +1,4 @@
+
 const sendRequest = async (body, uri, method, headers = {'Accept': 'application/json','Content-Type': 'application/json'}) =>{
 
     try{
@@ -25,9 +26,15 @@ const produceBody = (squad,
     members_email,
     members_role,
     members_institution,
-    members_enrollment)=>{
+    members_enrollment,
+    moment)=>{
 
     let id=0;
+
+    let number = 0;
+
+    for(let i = 0; i < members_name.length; i++)
+        number += members_name[i].value !== ''?1:0;
 
     let body = `{
                     "fields": {
@@ -150,7 +157,14 @@ const produceBody = (squad,
                         },
                         "member_six_enrollment": {
                             "stringValue": "${members_enrollment[id++].value}"
-                        }
+                        },
+                        "moment": {
+                            "stringValue": "${moment}"
+                        },
+                        "number": {
+                            "stringValue": "${number}"
+                        },
+
         }
     }`;
 
@@ -236,11 +250,10 @@ function padTo2Digits(num) {
   }
 
 function formatDate(date) {
-    return [
-      padTo2Digits(date.getDate()),
-      padTo2Digits(date.getMonth() + 1),
-      date.getFullYear(),
-    ].join('/');
+    return [padTo2Digits(date.getDate()),padTo2Digits(date.getMonth() + 1),date.getFullYear(),].join('/') 
+    + ' - ' +
+    [date.getHours(),date.getMinutes(),date.getSeconds()].join(':') 
+    ;
   }
 
 export {sendRequest, produceBody, formValidationObserver, FieldHelper, memberRoles, memberInstitutions, exportToCSV, formatDate};

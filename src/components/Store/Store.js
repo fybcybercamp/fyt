@@ -1,36 +1,61 @@
 import "./Store.css";
 import { useNavigate } from 'react-router';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db } from "../../config/firebase";
 import {
   collection,
   getDocs
 } from "firebase/firestore";
-import { exportToCSV , formatDate} from "../../utils";
+import {formatDate} from "../../utils";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Search from "./components/Search";
+import Exporter from "./components/Exporter";
 
 
 function Store() {
   
   const [registrations, setRegistrations] = useState([]);
+
+  const [readOnlyRegistrations, setReadOnlyRegistrations] = useState([]);
+
+  const StorePreloadRef = useRef();
+
+  const StoreSizeRef = useRef();
+
   let navigate = useNavigate();
 
-  const handleExporter=()=>{
-    exportToCSV(registrations);
+  const handleMemberData = (name, email) =>{
+    return name!==''?
+    (<ul><li>👽 {name}</li><li>📧 {email}</li></ul>)
+    :
+    (<ul><li>👽 --</li><li>📧 --</li></ul>);
+
+  }
+
+  const handleSearch=(value)=>{
+    if(value==='')
+     setRegistrations(readOnlyRegistrations);
+    else
+      setRegistrations( registrations.filter( 
+        (registration)=>{
+          return registration.squad.includes(value);
+        }
+      ) );
   }
   
   useEffect(() => {
 
-    if(localStorage.getItem('USER')==null)
+    if(localStorage.getItem('USER')==='null')
       navigate("/");
     else{
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, localStorage.getItem(`USER`), localStorage.getItem(`PASS`))
+      
+      signInWithEmailAndPassword(auth, localStorage.getItem('USER'), localStorage.getItem('PASS'))
         .then((userCredential) => {
-          localStorage.setItem(`CRED`,userCredential)
+          localStorage.setItem(`CRED`,userCredential);
         })
         .catch((error) => {
-            console.log(error)
+            console.log(error);
         });
 
       const getRegistrations = async () => {
@@ -38,13 +63,17 @@ function Store() {
           const registrationsStore = collection(db, "registration");
           const data = await getDocs(registrationsStore);
           setRegistrations(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      
+          setReadOnlyRegistrations(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+          StorePreloadRef.current.style.display='none';
+          StoreSizeRef.current.style.display='block';
+
       };
+
       try{
         getRegistrations();
       }catch(error){
         navigate("/");
-        alert(`Sua sessão expirou. Faça login novamente para continuar.`)
+        alert(`Sua sessão expirou. Faça login novamente para continuar.`);
       }
 
     }
@@ -58,13 +87,17 @@ function Store() {
 
         <img className='StoreBarLogo' src='img/logo_min.png' alt='logo'/>
 
-        <span className='StoreSize'>Equipes: {registrations.length}</span>
+        <Exporter data={registrations}/>
 
-        <span className='StoreExporter' onClick={handleExporter}>Exportar</span>
+        <Search callback={handleSearch}/>
+
 
       </div>
 
       <div className="StoreContent row">
+
+      <div ref={StorePreloadRef} className='StorePreload'>Carregando dados. Aguarde...</div>
+
       {registrations.map((registration, key) => {
         return (
 
@@ -77,30 +110,17 @@ function Store() {
             <h5 className="card-member">Membros</h5>
             
             <div className="card-members">
-              {registration.head_name!==''?
-              (<ul><li>👽 {registration.head_name}</li><li>📧 {registration.head_email}</li></ul>):(<></>)}
-              
-              {registration.member_two_name!==''?
-              (<ul><li>👽 {registration.member_two_name}</li><li>📧 {registration.member_two_email}</li></ul>):(<></>)}
-              
-              {registration.member_three_name!==''?
-              (<ul><li>👽 {registration.member_three_name}</li><li>📧 {registration.member_three_email}</li></ul>):(<></>)}
-              
-              {registration.member_four_name!==''?
-              (<ul><li>👽 {registration.member_four_name}</li><li>📧 {registration.member_four_email}</li></ul>):(<></>)}
-              
-
-              {registration.member_five_name!==''?
-              (<ul><li>👽 {registration.member_five_name}</li><li>📧 {registration.member_five_email}</li></ul>):(<></>)}
-              
-              {registration.member_six_name!==''?
-              (<ul><li>👽 {registration.member_six_name}</li><li>📧 {registration.member_six_email}</li></ul>):(<></>)}
-
+              {handleMemberData(registration.head_name, registration.head_email)}
+              {handleMemberData(registration.member_two_name, registration.member_two_email)}
+              {handleMemberData(registration.member_three_name, registration.member_three_email)}
+              {handleMemberData(registration.member_four_name, registration.member_four_email)}
+              {handleMemberData(registration.member_five_name, registration.member_five_email)}
+              {handleMemberData(registration.member_six_name, registration.member_six_email)}
             </div>
  
             <hr/>
 
-            <h5 className="card-member">Data da inscrição: {formatDate(registration.moment.toDate())}</h5>
+            <h5 className="card-member">Data da inscrição: {registration.moment !== null? formatDate(new Date(registration.moment)):''}</h5>
             
 
             </div>
@@ -109,6 +129,12 @@ function Store() {
           
         );
       })}
+
+      <div ref={StoreSizeRef} className='StoreSize'>
+        <hr/>
+        Você está visualizando os dados de {registrations.length} equipe{registrations.length>1?'s':''}.
+      </div>
+
       </div>
 
       

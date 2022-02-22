@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import FieldSet from './components/FieldSet';
 import { sendRequest, produceBody} from '../../utils';
 
-
 function Register() {
 
+  
   const handleClick = ()=>{
 
     const squad = document.querySelector('#squad');
@@ -16,8 +16,9 @@ function Register() {
     const members_role = document.querySelectorAll('.member_role');
     const members_institution = document.querySelectorAll('.member_institution');
     const members_enrollment = document.querySelectorAll('.member_enrollment');
+    const moment = new Date().toString();
 
-    const body = produceBody(squad,members_name,members_id,members_email,members_role,members_institution,members_enrollment);
+    const body = produceBody(squad,members_name,members_id,members_email,members_role,members_institution,members_enrollment, moment);
 
     const uri = "https://firestore.googleapis.com/v1/projects/cybercamp-fyb/databases/(default)/documents/registration/";
 
