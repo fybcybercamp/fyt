@@ -41,7 +41,7 @@ function Welcome() {
                   <div className="card-body p-md-5 mx-md-4">
 
                     <div className="text-center">
-                      <img src="/img/logo.png" alt="logo"/>
+                      <img src="/fyt/img/logo.png" alt="logo"/>
                       <h4 className="mt-1 mb-5 pb-1">Cybercamp Fit Your Business</h4>
                     </div>
 

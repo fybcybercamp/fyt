@@ -9,11 +9,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/fyt/register" element={<Register />} />
           
-        <Route path="/store" element={<Store />} />
+        <Route path="/fyt/store" element={<Store />} />
           
-        <Route path="/" element={<Welcome />} />
+        <Route path="/fyt/" element={<Welcome />} />
           
       </Routes>
    </BrowserRouter>

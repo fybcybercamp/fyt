@@ -241,4 +241,4 @@ function formatDate(date) {
     ;
   }
 
-export {sendRequest, produceBody, formValidationObserver, FieldHelper, memberRoles, memberInstitutions, exportToCSV, formatDate};
+export {sendRequest, produceBody, FieldHelper, memberRoles, memberInstitutions, exportToCSV, formatDate};

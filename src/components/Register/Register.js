@@ -41,7 +41,7 @@ function Register() {
       
         <main className="container">
         <div className="py-5 text-center">
-          <img className="d-block mx-auto mb-4" src="/img/logo.png" alt="" width="396" height="160"/>
+          <img className="d-block mx-auto mb-4" src="/fyt/img/logo.png" alt="" width="396" height="160"/>
           <h2>Cybercamp Fit Your Thinking</h2>
           <p className="lead">Neste formulário, você poderá registrar os dados de cada membro da sua equipe e submete-los para o cybercamp <strong>Fit Your Thinking</strong>.</p>
         </div>
