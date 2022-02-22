@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/fyt/static/css/main.f15b2043.css",
+    "main.js": "/fyt/static/js/main.96158594.js",
+    "index.html": "/fyt/index.html",
+    "main.f15b2043.css.map": "/fyt/static/css/main.f15b2043.css.map",
+    "main.96158594.js.map": "/fyt/static/js/main.96158594.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f15b2043.css",
+    "static/js/main.96158594.js"
+  ]
+}
