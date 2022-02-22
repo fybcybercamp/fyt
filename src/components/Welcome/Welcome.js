@@ -35,7 +35,7 @@ function Welcome() {
                     
 
                       <div className="row WelcomeButtonRow">
-                      <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleRegisterRedirect} type="button">Realizar inscrições</button>
+                      <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleRegisterRedirect} type="button">Realizar inscrição</button>
                       </div>
 
                       <div className="row WelcomeButtonRow">

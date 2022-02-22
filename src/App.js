@@ -11,6 +11,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/fyt/register" element={<Register />} />
+
+        <Route path="/fyt/register?" element={<Register />} />
           
         <Route path="/fyt/store" element={<Store />} />
 

@@ -31,7 +31,7 @@ const sendRequest = async (body, uri, method, headers = {'Accept': 'application/
 
         }else{
             alert('Inscrição não realizada. Os campos realçados em vermelho precisam ser preenchidos.');
-            return false;
+            return true;
         }
 
     }catch(error){
