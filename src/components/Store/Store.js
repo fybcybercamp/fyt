@@ -46,7 +46,7 @@ function Store() {
   useEffect(() => {
 
     if(localStorage.getItem('USER')==='null')
-      navigate("/");
+      navigate("/fyt/login");
     else{
       const auth = getAuth();
       
@@ -72,7 +72,7 @@ function Store() {
       try{
         getRegistrations();
       }catch(error){
-        navigate("/");
+        navigate("/fyt/login");
         alert(`Sua sessão expirou. Faça login novamente para continuar.`);
       }
 
@@ -85,7 +85,7 @@ function Store() {
 
       <div className="StoreBar navbar">
 
-        <img className='StoreBarLogo' src='img/logo_min.png' alt='logo'/>
+        <img className='StoreBarLogo' src='/fyt/img/logo_min.png' alt='logo'/>
 
         <Exporter data={registrations}/>
 

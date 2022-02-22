@@ -1,22 +1,37 @@
-import './Welcome.css';
+import './Login.css';
+import { useEffect } from "react";
 import { useNavigate } from 'react-router';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
-function Welcome() {
+function Login() {
 
   let navigate = useNavigate();
 
+  useEffect(
+    ()=>{
+      localStorage.setItem('USER', null);
+    },[]
+  );
 
-  const handleRegisterRedirect = () => {
-    navigate("/fyt/register");
-  }
+  const handleClick = () => {
+    const auth = getAuth();
+    document.querySelector('.alert').style.display=`none`;
+      signInWithEmailAndPassword(auth, localStorage.getItem('USER'), localStorage.getItem('PASS'))
+        .then((userCredential) => {
+          navigate("/fyt/store");
+          localStorage.setItem(`CRED`,userCredential)
+        })
+        .catch((error) => {
+            document.querySelector(`.alert`).style.display=`inherit`;
+            console.log(error)
+        });
 
-  const handleLoginRedirect = () => {
-    navigate("/fyt/login");
+
   }
 
   return (
-    <section className="h-100 gradient-form Welcome">
+    <section className="h-100 gradient-form Login">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-xl-10">
@@ -31,19 +46,27 @@ function Welcome() {
                     </div>
 
                     <form>
-                      <p>Bem vindo a plataforma de inscrições!</p>
-
-                     
+                      <p>Use suas credenciais para acessar o repositório de inscrições.</p>
 
                       <div className="form-outline mb-4">
-                      <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleRegisterRedirect} type="button">Realizar inscrições</button>
+                        <input type="email" id="form2Example11" onChange={(e)=>{localStorage.setItem(`USER`,e.target.value)}} className="form-control" placeholder="Digite seu e-mail"/>
+                        
                       </div>
 
                       <div className="form-outline mb-4">
-                      <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleLoginRedirect} type="button">Gerenciar inscrições</button>
+                        <input type="password" id="form2Example22" onChange={(e)=>{localStorage.setItem(`PASS`,e.target.value)}} className="form-control" placeholder="Digite sua senha"/>
+                        
                       </div>
 
-                     
+                      <div className="form-outline mb-4">
+                      <button className="btn btn-block btn-primary gradient-custom-2" onClick={handleClick} type="button">Log in</button>
+                      </div>
+
+                      <br/>
+
+                      <div className="alert alert-danger" role="alert">
+                       Credencias inválidas.
+                      </div>
 
                     </form>
 
@@ -65,4 +88,4 @@ function Welcome() {
   );
 }
 
-export default Welcome;
+export default Login;

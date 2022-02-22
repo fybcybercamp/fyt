@@ -1,13 +1,13 @@
-.Welcome{
+.Login{
   margin:0; 
 }
 
 
-.Welcome .alert{margin:20px 0 20px 0; display:none;}
+.Login .alert{margin:20px 0 20px 0; display:none;}
 
-.Welcome img{width:185px;}
+.Login img{width:185px;}
 
-.Welcome button{border:0px; float:right; width:200px}
+.Login button{border:0px; float:right; width:100px}
 
 .gradient-custom-2 {
   /* fallback for old browsers */
