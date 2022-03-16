@@ -8,7 +8,7 @@ function Register() {
 
   let keyId = 0;
   
-  const handleClick = ()=>{
+  const handleClick = (e)=>{
 
     const squad = document.querySelector('#squad');
     const members_name = document.querySelectorAll('.member_name');
@@ -82,7 +82,7 @@ function Register() {
 
               </div>
 
-              <button className="w-100 btn btn-primary btn-lg" type="submit" onClick={handleClick}>Submeter inscrição</button>
+              <button className="w-100 btn btn-primary btn-lg" type="button" onClick={handleClick}>Submeter inscrição</button>
 
             </form>
           </div>

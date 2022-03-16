@@ -10,15 +10,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/fyt/register" element={<Register />} />
-
-        <Route path="/fyt/register?" element={<Register />} />
-          
+   
         <Route path="/fyt/store" element={<Store />} />
 
         <Route path="/fyt/login" element={<Login />} />
           
-        <Route path="/fyt/" element={<Welcome />} />
+        <Route path="/fyt/" element={<Login />} />
           
       </Routes>
    </BrowserRouter>

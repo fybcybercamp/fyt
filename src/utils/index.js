@@ -20,18 +20,21 @@ const memberInstitutions = [
 
 
 const sendRequest = async (body, uri, method, headers = {'Accept': 'application/json','Content-Type': 'application/json'}) =>{
+    
+    var form = document.querySelector('#squad_registration');
 
     try{
-        if(localStorage.getItem('IS_VALID')==='true'){
-        const rawResponse = await fetch(uri, {method,headers,body});
-    
-        alert('Dados enviados com sucesso!')
+        if(form.checkValidity() === true){
+            const rawResponse = await fetch(uri, {method,headers,body});
+        
+            alert('Dados enviados com sucesso!')
 
-        return await rawResponse.json();
+            return await rawResponse.json();
 
         }else{
             alert('Inscrição não realizada. Os campos realçados em vermelho precisam ser preenchidos.');
-            return true;
+            form.classList.add('was-validated');
+            return false;
         }
 
     }catch(error){
@@ -55,8 +58,9 @@ const produceBody = (squad,
 
     let number = 0;
 
-    for(let i = 0; i < members_name.length; i++)
+    for(let i = 0; i < members_name.length; i++){
         number += members_name[i].value !== ''?1:0;
+    }
 
     let body = `{
                     "fields": {
@@ -195,10 +199,30 @@ const produceBody = (squad,
 }
 
 
-var objectToCSVRow = function(dataObject) {
+var objectToCSVHead = function(dataObject) {
     var dataArray = [];
+    
+    dataObject.sort();
+    
     for (var o in dataObject) {
         var innerValue = dataObject[o]===null?'':dataObject[o].toString();
+        var result = innerValue.replace(/"/g, '""');
+        result = '"' + result + '"';
+        dataArray.push(result);
+    }
+    return dataArray.join(' ') + '\r\n';
+}
+
+var objectToCSVRow = function(dataObject, headers) {
+    var dataArray = [];
+
+    console.log(dataObject)
+    console.log(headers)
+
+    
+    for (let i = 0; i < headers.length;i++) {
+        let e = headers[i];
+        var innerValue = dataObject[e]===null?'':dataObject[e].toString();
         var result = innerValue.replace(/"/g, '""');
         result = '"' + result + '"';
         dataArray.push(result);
@@ -212,15 +236,20 @@ var exportToCSV = function(arrayOfObjects) {
         return;
     }
 
+    //content init
     var csvContent = "data:text/csv;charset=utf-8,";
 
     // headers
-    csvContent += objectToCSVRow(Object.keys(arrayOfObjects[0]));
+    const headers = Object.keys(arrayOfObjects[0]).sort();
+   
+    csvContent += objectToCSVHead(headers);
 
+    //content gen
     arrayOfObjects.forEach(function(item){
-        csvContent += objectToCSVRow(item);
+        csvContent += objectToCSVRow(item, headers);
     }); 
 
+    //config & download
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);

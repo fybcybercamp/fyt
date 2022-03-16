@@ -8,7 +8,7 @@ function Welcome() {
 
 
   const handleRegisterRedirect = () => {
-    navigate("/fyt/register");
+    navigate("/hotsite");
   }
 
   const handleLoginRedirect = () => {
